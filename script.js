@@ -1,85 +1,172 @@
 // randomNumbers generate an Array of 4, each row filled with a random generated number
 function randomNumbers(){
-  let randomArray = [];
+  let randomArray = []
   
   for (let i=0; i<4; i++){
-      let random,
-          do{
-              random = Math.random()}
-          while( random === 0 )
-    
-    randomArray.push(random)
+      let random
+          
+            do {
+              random = Math.random();
+          } while ( random === 0 );
+      
+      randomArray.push(random)
+  }
   return randomArray
 }
 
 // creating randomN at loading
 
 let randomVertiN = randomNumbers(),
-randomHorizN = randomNumbers();
+    randomHorizN = randomNumbers();
 
 
 // function generating lines in the background
 function backgroundHorizontalLines(){
 
- 
-    
-  // generate each Canvas separately 
-  for (let i=0 ; i<4; i++){
-    let hCanvas = [],
-        hCtx = [];
-    let hRoundRandom = randomHorizN[i],
+    let hCtx,
         hRoundCanvas,
-        y = i + 1,
-        hLine = 'hline' + y ;
-    
-    hRoundCanvas = hCanvas[y]
+        hRoundRandom,
+        xMaxCoordinate = window.innerWidth,
+        yMaxCoordinate = window.innerHeight;
        
-    hRoundCanvas = document.getElementById(hLine)
+    hRoundCanvas = document.getElementById("canvas1")
     hRoundCanvas.width = window.innerWidth
     hRoundCanvas.height = window.innerHeight  
-    hCtx[y] = hRoundCanvas.getContext('2d')  
-    hCtx[y].beginPath()
-    hCtx[y].lineWidth=2
-    hCtx[y].setLineDash([10,7])
-    hCtx[y].moveTo(0*hRoundRandom,1000000*hRoundRandom)
-    hCtx[y].bezierCurveTo(0,100*hRoundRandom,
-                        200*hRoundRandom,100*hRoundRandom,
-                        400*hRoundRandom,100);
-    hCtx[y].stroke();
+    hCtx = hRoundCanvas.getContext('2d')  
+    hCtx.beginPath()
+
+    
+  // generate 2 Bezier Curved lines towards the top separately 
+  for (let i=0 ; i<2; i++){
+      let hRoundRandomTool1,
+          hRoundRandomTool2,
+          hRoundRandomTool3;
+         
+      hRoundRandom = randomHorizN[i]
+      hRoundRandomTool1 = hRoundRandom * Math.random()
+      hRoundRandomTool2 = hRoundRandom * Math.random()
+      hRoundRandomTool3 = hRoundRandom * Math.random()  
+         
+      
+    
+    hCtx.beginPath()
+    hCtx.lineWidth=3
+    hCtx.setLineDash([10,7])
+    hCtx.moveTo(0,yMaxCoordinate*hRoundRandomTool1)
+    hCtx.bezierCurveTo( 1000 * hRoundRandomTool3,
+                        yMaxCoordinate * hRoundRandomTool2,
+                        xMaxCoordinate * hRoundRandomTool3,
+                        yMaxCoordinate * hRoundRandomTool1,
+                        xMaxCoordinate,
+                       1000 * hRoundRandom)
+    hCtx.stroke()
+    
+  } 
+    // generate 2 Bezier Curved lines towards the top separately 
+
+
+    for (let i=2 ; i<4; i++){
+      let hRoundRandomTool1,
+          hRoundRandomTool2,
+          hRoundRandomTool3;
+         
+      hRoundRandom = randomHorizN[i]
+      hRoundRandomTool1 = hRoundRandom * Math.random() * 10
+      hRoundRandomTool2 = hRoundRandom * Math.random() * 10 
+      hRoundRandomTool3 = hRoundRandom * Math.random() * 10
+         
+      
+    
+    hCtx.beginPath()
+    hCtx.lineWidth=1
+    hCtx.setLineDash([10,7])
+    hCtx.moveTo(0,yMaxCoordinate *hRoundRandomTool1)
+    hCtx.bezierCurveTo( 1000 * hRoundRandomTool3,
+                        yMaxCoordinate * hRoundRandomTool2,
+                        xMaxCoordinate * hRoundRandomTool3,
+                        yMaxCoordinate * hRoundRandomTool1,
+                        xMaxCoordinate,
+                       1000 * hRoundRandom)
+    hCtx.stroke()
     
   }
 
 }
-/*
+
 function backgroundVerticalLines(){
-let vCanvas = [],
-    vCtx = [];
-  
-  for (let i=0; i<4; i++){
-    let vRoundRandom = randomVertiN[i],
-        vy = i + 1,
+
+    let vCtx,
         vRoundCanvas,
-        vLine = 'vline' + vy ;
-    
-    vRoundCanvas = vCanvas[vy]
+        vRoundRandom,
+        xMaxCoordinate = window.innerWidth,
+        yMaxCoordinate = window.innerHeight;
        
-    vRoundCanvas = document.getElementById(vLine)
+    vRoundCanvas = document.getElementById("canvas2")
     vRoundCanvas.width = window.innerWidth
-    vRoundCanvas.height = window.innerHeight
-    vCtx[vy] = vRoundCanvas.getContext('2d')
-    vCtx[vy].beginPath();
-    vCtx[vy].moveTo(100,100);
-    vCtx[vy].bezierCurveTo(20*vRoundRandom,100*vRoundRandom,
-                        200*vRoundRandom,100*vRoundRandom,
-                        200*vRoundRandom,20);
-    vCtx[vy].stroke();
+    vRoundCanvas.height = window.innerHeight  
+    vCtx = vRoundCanvas.getContext('2d') 
+    vCtx.beginPath()
+
+    
+    // generate 2 Bezier Curved lines towards the top separately 
+    for (let i=0 ; i<2; i++){
+      let vRoundRandomTool1,
+          vRoundRandomTool2,
+          vRoundRandomTool3;
+         
+      vRoundRandom = randomVertiN[i]
+      vRoundRandomTool1 = vRoundRandom * Math.random() * 10
+      vRoundRandomTool2 = vRoundRandom * Math.random() * 10 
+      vRoundRandomTool3 = vRoundRandom * Math.random() * 10
+         
+      
+    
+    
+    vCtx.lineWidth=1
+    vCtx.setLineDash([11, 7])
+    vCtx.moveTo(xMaxCoordinate * vRoundRandomTool1, 0)
+    vCtx.bezierCurveTo(xMaxCoordinate * vRoundRandom,
+                       yMaxCoordinate * vRoundRandomTool1,
+                       xMaxCoordinate * vRoundRandom,
+                       yMaxCoordinate * vRoundRandomTool2,
+                       xMaxCoordinate * vRoundRandom,
+                      yMaxCoordinate)
+    vCtx.stroke()
+    
+  }
+    
+    // generate 2 Bezier Curved lines towards the top separately 
+    for (let i=2 ; i<4; i++){
+      let vRoundRandomTool1,
+          vRoundRandomTool2,
+          vRoundRandomTool3;
+         
+      vRoundRandom = randomVertiN[i]
+      vRoundRandomTool1 = vRoundRandom * Math.random() * 10
+      vRoundRandomTool2 = vRoundRandom * Math.random() * 10
+      vRoundRandomTool3 = vRoundRandom * Math.random() * 10
+         
+      
+    
+    vCtx.beginPath()
+    vCtx.lineWidth=2
+    vCtx.setLineDash([10,7])
+    vCtx.moveTo( xMaxCoordinate * vRoundRandom,0)
+    vCtx.bezierCurveTo( xMaxCoordinate * vRoundRandomTool3,
+                        yMaxCoordinate * vRoundRandom,
+                        xMaxCoordinate * vRoundRandomTool2,
+                        yMaxCoordinate * vRoundRandomTool1,
+                        xMaxCoordinate,
+                       yMaxCoordinate * vRoundRandomTool1)
+    vCtx.stroke()
     
   }
 
-}*/
+}
+
 
 
 console.log(randomHorizN);
-/*console.log(randomVertiN);*/
-backgroundHorizontalLines()
-/*backgroundVerticalLines()*/
+console.log(randomVertiN);
+backgroundHorizontalLines();
+backgroundVerticalLines();
